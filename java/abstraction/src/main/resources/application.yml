@@ -1,0 +1,156 @@
+---
+server:
+  port: 8280
+
+---
+spring:
+  kafka:
+    consumer-group-id: decim-abstraction
+    bootstrap-servers: 210.217.178.129:9092 #개발서버 코어
+    #bootstrap-servers: 192.168.137.223:9092
+
+---
+spring:
+  datasource:
+    #    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    #    url: jdbc:log4jdbc:mariadb://192.168.137.146:3306/dcim
+    #    user-name: root
+    #    password: sptek**
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mariadb://210.217.178.128:3306/dcim
+    user-name: dcimuser
+    password: dcim12#$
+
+---
+dcim:
+  repository:
+    - name: nas-repos
+      type: FTP
+      server: 210.217.178.128
+      port: 22
+      user: root
+      password: Sptek12#$
+      remote: /root/repos
+
+#    - name: nas-repos
+#      type: System
+#      remote: D:/tmp/repos
+
+#    # target: mdc-repos
+#    - name: BA135346-6366-4205-8EC7-35D0BE928DAA
+#      type: FTP
+#      server: 210.217.178.130
+#      port: 22
+#      user: root
+#      password: Sptek12#$
+#      remote: /root/repos/mdc2
+
+#    # target: mdc-repos
+#    - name: D4D4AA47-3D4F-4F22-AA7E-E2331B08529D
+#      type: FTP
+#      server: 210.217.178.130
+#      port: 22
+#      user: root
+#      password: Sptek12#$
+#      remote: /root/repos/mdc
+
+    # target: mdc-repos
+    - name: D4D4AA47-3D4F-4F22-AA7E-E2331B08529D
+      type: Ansible
+      server: 210.217.178.130
+      port: 22
+      user: root
+      password: Sptek12#$
+      remote: /root/repos/mdc
+
+#    # target: mdc-repos
+#    - name: D4D4AA47-3D4F-4F22-AA7E-E2331B08529D
+#      type: System
+#      remote: D:/tmp/repos/mdc
+
+#    - name: mdc-repos
+#      type: Ansible
+#      #include-entry: D:/tmp/yaml/mdc-repos-entry.yml
+#      include-entry: /root/repos/mdc/mdc-repos-entry.yml
+#      remote: /root/repos/mdc
+
+#    - name: nas-repos
+#      type: System
+#      remote: D:/tmp/repos
+#      #remote: /root/repos
+
+    - name: dcim-repos
+      type: System
+      remote: /root/repos
+
+#    - name: dcim-repos
+#      type: System
+#      remote: D:/tmp/repos
+
+
+  resource:
+    collector: release/1.0/dcim-collector-v1.0
+    agent: release/1.0/dcim-agent-v1.0
+    hosts: release/1.0/mdc-hosts-v1.0.yml
+    adaptation: release/1.0/dcim-adaptation-v1.0.yml
+    temporary: 629BCDFC-7764-4DD4-BB6E-6A50F79AFBCC
+    release: release/mdc
+
+---
+#    - name: device-master
+#      host: 192.168.0.100
+#      type: ssh, telnet
+#      control: cli, ssacli, hpsscli, hp-health, hpasmcli, omsa, snmp, rack, pdu
+#      data: cpu, memory, stat, controller, fan, power, temp, volumn, disk, hardware, interface, arcon,
+mdc:
+  device:
+    - name: 91DEFDF5-24C4-4ADA-911B-9E1EF725EA30
+      host: 192.168.0.101
+      type: ssh
+      control: power, temp
+      display: PDU
+
+    - name: DF0FC250-C782-4A6C-9260-467DA5282282
+      host: 192.168.0.102
+      type: ssh
+      control: power, temp, arcon
+      display: RACK
+
+    - name: 3148EF9F-EBE3-4A1B-8490-F58C1EDCD9A2
+      host: 192.168.0.103
+      type: ssh
+      control: power, temp, disk
+      display: Storage
+
+    - name: 9E75E065-E7E6-4864-837B-E16FB90B2B3A
+      host: 192.168.0.104
+      type: ssh
+      control: power, temp, cpu, memory
+      display: Switch
+
+    - name: 028AD671-9C27-49D8-B2E0-C811DDBD7C09
+      host: 192.168.0.105
+      type: ssh
+      control: power, temp, cpu, memory, fan, disk, controller
+      display: MDC-Server-129
+
+    - name: 991E2A14-B566-4FE4-A0D5-B65198CF33EE
+      host: 192.168.0.106
+      type: ssh
+      control: power, temp, cpu, memory, fan, disk, controller
+      display: MDC-Server-130
+
+    - name: 774E11A7-A464-43D8-B568-14237230C826
+      host: 192.168.0.107
+      type: ssh
+      control: cpu, memory, stat
+      display: Firewall
+
+---
+test:
+  json-root: /root/repos/test/json
+  workspace: /root/repos/test/work
+
+#  json-root: D:/tmp/json
+#  workspace: D:/tmp/work
+

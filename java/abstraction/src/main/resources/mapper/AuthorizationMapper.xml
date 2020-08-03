@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sptek.abstraction.db.mapper.AuthorizationMapper">
+
+    <select id="selectExpiryDate" parameterType="map" resultType="kr.co.sptek.abstraction.db.dto.AuthorizationDto">
+	<![CDATA[
+		SELECT
+			  company_id		AS  company		,
+			  mdc_id 			AS  mdc 		,
+			  activate_code 	AS  code 		,
+			  start_date 		AS  startDate	,
+			  end_date 			AS  endDate
+		 FROM dcim.MDC_AGENT_LICENSE_TBL
+		WHERE company_id = #{company}
+		  AND mdc_id = #{mdc}
+		  AND activate_code = #{code};
+	]]>
+	</select>
+
+	<select id="insertExpiryDate" parameterType="map">
+	<![CDATA[
+		INSERT INTO dcim.MDC_AGENT_LICENSE_TBL(
+		            company_id,
+		            mdc_id,
+		            activate_code,
+		            start_date,
+		            end_date)
+             VALUES ( #{company}, #{mdc}, #{code}, #{startDate}, #{endDate} );
+	]]>
+	</select>
+</mapper>
