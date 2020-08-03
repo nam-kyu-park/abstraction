@@ -1,0 +1,8 @@
+---
+# Set service version.
+version: 1.0
+
+# Set service name.
+service: 
+  name: rack
+  port: 23

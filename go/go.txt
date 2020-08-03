@@ -1,2 +1,3 @@
 go area 입니다.!!
-dcim collector project 입니다.
+dcim 프로젝트 중 mdc에서 운영될 수집 프로그램 입니다.
+( upload dcim project source code. )

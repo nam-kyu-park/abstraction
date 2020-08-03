@@ -1,0 +1,25 @@
+---
+# Set service version.
+version: 1.0
+
+# Set service name.
+service: 
+  name: mdc service device entry
+
+# Set connect server
+controls: 
+- name: dcim-collector
+  displayName: collector server
+  server:
+  - name: collector
+    protocal: tcp
+    ip: 127.0.0.1
+    port: 9000
+    user: root
+    password: Sptek12#$
+
+
+# Set vender entry
+vender:
+- include: vender-del.yml
+- include: vender-hp.yml

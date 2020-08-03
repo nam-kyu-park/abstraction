@@ -1,0 +1,16 @@
+---
+# Set service version.
+version: 1.0
+
+# Set service name.
+service: 
+  name: adaptation
+
+# the control type is local and remote
+server:
+- name: adaptation  
+  protocal: http
+  ip: 172.16.11.227
+  port: 8280
+  user: root
+  password: Sptek12#$

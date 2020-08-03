@@ -1,0 +1,38 @@
+version: 1.0
+
+service:
+  name: data-points
+
+response-type: json
+ 
+# Describe the data point
+points:
+- point:
+  name: fan-1
+  value-type: double
+  value: 0
+
+- point:
+  name: fan-2
+  value-type: double
+  value: 0
+
+- point:
+  name: cpu-1
+  value-type: double
+  value: 0
+
+- point:
+  name: cpu-2
+  value-type: double
+  value: 0
+
+- point:
+  name: temperature-1
+  value-type: double
+  value: 0
+
+- point:
+  name: temperature-2
+  value-type: double
+  value: 0

@@ -1,0 +1,22 @@
+---
+# Set service version.
+version: 1.0
+
+# Set service name.
+service: 
+  name: collector
+  port: 9000
+
+# the control type is local and remote
+# the ip and port optional to remote control type
+# the protocal type is cli, ssh, telnet, tcp, rest api
+controls: 
+- name: dcim-adaptation
+  displayName: adaptation server
+  include: adaptation.yml
+
+# Describe the data point
+points:
+-  include: data-points.yml
+
+

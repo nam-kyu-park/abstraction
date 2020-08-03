@@ -1,0 +1,55 @@
+---
+# Set service version.
+version: 1.0
+
+
+# Set vendor and product information.
+vender: 
+- name: 7C7DDBF0-7888-4DE6-A5E3-D2C475B275E7
+  product: HP DL380 G8 (Server)
+
+
+# the task is measure fan status
+tasks:
+- name: fan-status
+  displayName: 'fan spin monitoring'
+  command: hplog -f
+  fiter: 'fan spin'
+  parse: 'fan spin - fan1: ${{ fan1 }} - fan2: ${{ fan2 }}'
+
+
+# the task is measure memory status
+- name: memory-status
+  displayName: 'memory status monitoring'
+  command: hpasmcli -s "show dimm"
+  fiter: 'cpu rate'
+  parse: '- cpu1: ${{ cpu1 }} - cpu2: ${{ cpu2 }}'
+
+
+# the task is measure temperature status
+- name: temperature-status
+  displayName: 'temperature status monitoring'
+  command: hpasmcli -s "show dimm"
+  fiter: 'temperature rate'
+  parse: '- temperature1: ${{ temperature1 }} - temperature2: ${{ temperature2 }}'
+
+
+# Describe the data point
+points:
+  include-point: data-points.yml
+  link: 
+    - name: fan-1
+      value: ${{ fan1 }}
+    - name: fan-2
+      value: ${{ fan2 }}
+    - name: cpu-1
+      value:  ${{ cpu1 }}
+    - name: cpu-2
+      value:  ${{ cpu2 }}
+    - name: temperature-1
+      value:  ${{ temperature1 }}
+    - name: temperature-2
+      value:  ${{ temperature2 }}
+
+
+
